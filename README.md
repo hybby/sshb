@@ -11,5 +11,12 @@ set up ssh-agent (presuming your ssh keys are already set up)
 
     for i in $(cat hostlist) ; do
       ./sshb $i 'echo "hello world!"'
+    done
+
+gives output like
+
+    [performing echo "hello world!" on myserver]
+    hello world!
+    (return code: 0)
 
 remember escapes, quoting, variable interpolation, et al.
