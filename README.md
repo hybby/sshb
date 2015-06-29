@@ -20,3 +20,5 @@ gives output like
     (return code: 0)
 
 remember escapes, quoting, variable interpolation, et al.
+
+also, those nice status bars are all printed on stderr.  so if you don't want them, just `2>/dev/null`

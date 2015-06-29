@@ -1,6 +1,6 @@
 #!/bin/ksh
 # batch ssh
-# prior to this, you have to have ssh-agent running 
+# prior to this, you have to have ssh-agent running
 # and remember to add your key through ssh-add
 
 usage="usage: $0 host \"command to run\""
@@ -15,9 +15,10 @@ target=$1
 homedir=$HOME
 cmd=$( echo $args | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}')
 
-pokehome=$(ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no $target "ls -ld $HOME" >/dev/null 2>&1)
-cmdoutput=$(ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no $target $cmd 2>&1) 
+pokehome=$(ssh -o BatchMode=yes -o StrictHostKeyChecking=no $target "ls -ld $HOME" >/dev/null 2>&1)
+cmdoutput=$(ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no $target $cmd 2>&1)
 returncode=$(ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no $target "echo $?")
 
-echo -e "[performing $cmd on $target] \n$cmdoutput \n(return code: $returncode)"
-echo -e "\n"
+>&2 echo -e "[performing $cmd on $target]"
+echo -e "$cmdoutput"
+>&2 echo -e "(return code: $returncode)\n"
